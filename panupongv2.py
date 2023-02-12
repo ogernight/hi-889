@@ -5,7 +5,6 @@ import socket
 import threading
 import time
 import datetime
-import urllib2
 import urllib
 import re
 import sys
